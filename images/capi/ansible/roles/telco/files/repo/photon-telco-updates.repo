@@ -1,0 +1,7 @@
+[photon-telco-updates]
+name=VMware Photon Telco Linux $releasever ($basearch) Updates
+baseurl=https://packages.vmware.com/photon/photon_telco/$releasever/photon_updates_$releasever_$basearch
+gpgkey=file:///etc/pki/rpm-gpg/VMWARE-RPM-GPG-KEY
+gpgcheck=1
+enabled=1
+skip_if_unavailable=True

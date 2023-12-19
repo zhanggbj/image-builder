@@ -1,0 +1,12 @@
+[Unit]
+Description=containerd-shim v2 shutdown optimization
+Requires=containerd.service
+After=containerd.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStop=-/bin/sh -c '[ "$(systemctl is-system-running)" = "stopping" ] || exit 0; kill -9 $(< /sys/fs/cgroup/systemd/system.slice/containerd.service/cgroup.procs )'
+
+[Install]
+WantedBy=containerd.service

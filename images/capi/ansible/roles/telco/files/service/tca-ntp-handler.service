@@ -1,0 +1,10 @@
+[Unit]
+Description=Enable NTP related services and disable timesync if ntp is enabled, or enable timesync
+After=cloud-init.service
+
+[Service]
+ExecStart=python3 /usr/local/bin/tca_ntp_handler.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=Prepare some basic infrastructure configs
+After=systemd-networkd.service
+
+[Service]
+ExecStart=/usr/local/bin/telco-boot-script.sh
+
+
+[Install]
+WantedBy=multi-user.target

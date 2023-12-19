@@ -1,0 +1,106 @@
+version:
+  byoi: BYOI_BUILD
+  tkg: TKG_VERSION
+  kubernetes: KUBECTL_VERSION
+  kernel: linux-4.19.295-4.ph3
+  kernel_ph5: linux-6.1.60-4.ph5
+  user_customize: USER_CUSTOMIZE
+  compliance: None
+capabilities:
+  node_components:
+    passthrough_devices:
+      device_type:
+        - NIC
+        - ACC100
+        - PTP
+summary:
+  - 20231208 Enable photon repo for Photon 5
+  - 20231121 Uptake TKG 2.5.0 rc2 build
+  - 20231023 Fix tca-ntp-handler.service would re-run after node reboot
+  - 20230925 uptake tkg Halifax- 2.3.1rtm
+  - 20230920 upgrade helm/sriov/bond
+  - 20230616 Enable DHCP on tkg* network interfaces
+  - 20230516 [tkg 2.3.0] pin the kernel to 4.19.283-3.ph3 and cloud-init to 22.4.2-5.ph3
+  - 20230504 Install tca-ntp-handler.service for on-demand handling ntp related services and timesync
+  - 20230302 upgrade helm and sriov
+  - 20230110 [tkg v2.1.1] pin the kernel to 4.19.272-1.ph3 and cloud-init to 22.4.2-3.ph3
+  - 20230110 [tkg v2.1.0] pin the kernel to 4.19.268-3.ph3 and cloud-init to 22.4.2-2.ph3
+  - 20230103 [tkg v1.6.1] pin the kernel to 4.19.264-6.ph3 and cloud-init to 22.4.2-2.ph3
+  - 20221024 support photon3 STIG hardening.
+  - 20221010 delete calicoctl/antctl and upgrade the bond/sriov binary to solve the security problem
+  - 20220819 [tkg v1.6.0] pin the kernel to 4.19.247-7.ph3 and cloud-init to 22.2.2-1.ph3
+  - 20220530 add cni-dhcp.service into systemd
+  - 20220510 [tkg v1.5.4] pin the kernel to 4.19.232-2.ph3 and cloud-init to 21.2-4.ph3
+packages:
+  - name: cloud-init
+    version: 22.4.2-5.ph3
+    version_ph5: 23.3.2-1.ph5
+  - name: linux-firmware
+    version: 20210204-1.ph3
+    version_ph5: 20230207-1.ph5
+  - name: pciutils
+    version: 3.6.2-1.ph3
+    version_ph5: 3.9.0-1.ph5
+  - name: nfs-utils
+    version: 2.3.3-5.ph3
+    version_ph5: 2.6.2-8.ph5
+  - name: ethtool
+    version: 4.18-1.ph3
+    version_ph5: 6.1-1.ph5
+  - name: tcpdump
+    version: 4.9.3-2.ph3
+    version_ph5: 4.99.4-1.ph5
+  - name: libnuma
+    version: 2.0.13-2.ph3
+    version_ph5: 2.0.16-1.ph5
+  - name: kubectl
+    version: KUBECTL_VERSION
+  - name: testpmd
+    version: 19.11.0
+  - name: helm
+    version: v3.12.3
+  - name: sriov
+    version: 2.7.0
+  - name: dpdk-devbind.py
+    version: 1.9.5
+  - name: bond
+    version: 3.0.0
+  - name: host-device
+    version: 0.9.1
+  - name: iavf
+    version: 4.0.2
+  - name: ice
+    version: 1.12.7
+  - name: i40e
+    version: 2.23.17
+vmxSettings:
+  - key: tools.syncTimeWithHost
+    value: "true"
+  - key: pciBridge0.pciSlotNumber
+    value: 17
+  - key: virtualSCSI.pciSlotNumber
+    value: 32
+  - key: vmci.pciSlotNumber
+    value: 16
+  - key: ethernet0.pciSlotNumber
+    value: 160
+partitions:
+  - mountPath: /vmware-data
+    device: /dev/sda4
+    sizeInGB: 10
+  - mountPath: /
+    device: /dev/sda3
+    sizeInGB: 20
+upstream:
+  image:
+    repo: https://github.com/kubernetes-sigs/image-builder
+    cln: d2a2af9a6c4da053220e07259b2cdeb49736348d
+  stig:
+    photon3:
+      repo: https://gitlab.eng.vmware.com/tanzu-compliance/photon-3-stig-hardening
+      cln: e7cda0626b86d2b34157f25ad2aa12da7ec7254f
+    photon5:
+      repo: https://gitlab.eng.vmware.com/tanzu-compliance/photon-5-stig-hardening
+      # There has a branch which name is "tkg", this is the latest commit
+      cln: a909221489415256265b4cf2050e0dbbcfb9df5f
+

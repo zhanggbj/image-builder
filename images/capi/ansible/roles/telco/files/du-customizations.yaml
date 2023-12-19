@@ -1,0 +1,15 @@
+version:
+  kernel: linux-rt-4.19.295-4.ph3
+packages:
+  - name: stalld
+    version: 1.3.0-9.ph3
+  - name: linuxptp
+    version: 4.0-2.ph3
+  - name: tuned
+    version: 2.15.0-3.ph3 
+  - name: linux-rt-drivers-intel-ice-1.12.7
+    version: 4.19.295-4.ph3
+  - name: linux-rt-drivers-intel-iavf-4.9.1
+    version: 4.19.295-4.ph3
+  - name: linux-rt-drivers-intel-i40e-2.23.17
+    version: 4.19.295-4.ph3

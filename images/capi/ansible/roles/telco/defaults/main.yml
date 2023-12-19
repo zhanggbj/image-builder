@@ -1,0 +1,35 @@
+#
+# Copyright 2021, VMware Corporation, All rights reserved.
+#
+---
+enable_iavf: "true"
+repo_url: "https://build-artifactory.eng.vmware.com/artifactory/cnf-generic"
+reinstall_i40e: "true"
+extra_binaries: "true"
+kernel_config: "true"
+repo_config: "true"
+helm3_version: "3.12.3"
+basic_kernel_version: "4.19.132-1"
+rt_kernel_version: "4.19.132-rt59-1.ph3-rt"
+non_rt_kernel_version: "4.19.132-1.ph3"
+ice_version: "1.3.2"
+iavf_version: "4.0.2"
+install_ice: "true"
+ddp_version: "1.3.20.0"
+linux_firmware_ver: "20210204-1.ph3"
+# only this version can be installed in photon-5
+linux_firmware_ver_ph5: "20230207-1.ph5"
+pciutils_ver: "3.6.2-1.ph3"
+pciutils_ver_ph5: "3.9.0-1.ph5"
+set_mtu_9000: "false"
+disable_log_martians: "true"
+package_upgrade: "true"
+logrotate_config: "true"
+reboot_config: "true"
+custom_node: "true"
+diagnosis_config: "true"
+du_config: ENABLE_DU_OPTIMIZATION
+du_additional_k8s_io_ns_registry_images_list: "projects.registry.vmware.com/tkg/antrea-advanced-debian:v1.11.1_vmware.4,projects.registry.vmware.com/tkg/csi/csi-node-driver-registrar:v2.7.0_vmware.2,projects.registry.vmware.com/tkg/csi/vsphere-block-csi-driver:v3.0.1_vmware.2,projects.registry.vmware.com/tkg/csi/csi-livenessprobe:v2.9.0_vmware.2,projects.registry.vmware.com/tkg/multus-cni:v4.0.1_vmware.1,projects.registry.vmware.com/tkg/calico-all/kube-controllers:v3.25.1_vmware.2"
+du_additional_nodeconfig_ns_registry_images_list: "vmwaresaas.jfrog.io/registry/dpdk:linux-rt-4.19.295-4.ph3,vmwaresaas.jfrog.io/registry/telco-binary:2.0.0"
+du_custom_packages: "stalld-1.3.0-9.ph3 linuxptp-4.0-2.ph3 tuned-2.15.0-3.ph3  linux-rt-4.19.295-4.ph3 linux-rt-drivers-intel-ice-1.12.7-4.19.295-4.ph3 linux-rt-drivers-intel-iavf-4.9.1-4.19.295-4.ph3 linux-rt-drivers-intel-i40e-2.23.17-4.19.295-4.ph3"
+du_custom_packages_ph5: "stalld linuxptp tuned"

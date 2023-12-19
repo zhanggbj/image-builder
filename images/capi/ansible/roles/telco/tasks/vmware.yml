@@ -1,0 +1,199 @@
+---
+- name: apt-get install -y python3 python3-pip
+  command: apt-get install -y python3 python3-pip
+
+- name: pip install ray
+  command: pip install -U "ray[data,train,tune,serve]"
+
+#- include_tasks: iavf.yml
+#  when:
+#    - enable_iavf == "true"
+#    - photon_os_version == "photon-3"
+#
+#- include_tasks: i40e.yaml
+#  when:
+#    - reinstall_i40e == "true"
+#    - photon_os_version == "photon-3"
+#
+#- include_tasks: ice.yml
+#  when:
+#    - install_ice == "true"
+#    - photon_os_version == "photon-3"
+#
+#- include_tasks: mtu9000.yaml
+#  when: set_mtu_9000 == "true"
+#
+#- include_tasks: logmartians.yml
+#  when: disable_log_martians == "true"
+#
+#- name: Install tools for telco cases for VMware Photon OS 3
+#  command: tdnf install {{ packages }} -y
+#  vars:
+#    packages: "ethtool pciutils-{{ pciutils_ver }} tcpdump nfs-utils libnuma"
+#  when: photon_os_version == "photon-3"
+#
+#- name: Install tools for telco cases for VMware Photon OS 5
+#  command: tdnf install {{ packages }} -y
+#  vars:
+#    # ethtool-6.1-1.ph5(installed) pciutils-3.9.0-1.ph5 tcpdump-4.99.4-1.ph5  nfs-utils-2.6.2-8.ph5 libnuma-2.0.16-1.ph5(installed)
+#    packages: "ethtool pciutils-{{ pciutils_ver_ph5 }} tcpdump nfs-utils libnuma"
+#  when: photon_os_version == "photon-5"
+#
+#- include_tasks: binaries.yml
+#  when: extra_binaries == "true"
+#
+#- name: Copy the telco-boot-script script
+#  copy:
+#    src: files/service/telco-boot-script.sh
+#    dest: /usr/local/bin/telco-boot-script.sh
+#    owner: root
+#    group: root
+#    mode: 0750
+#
+#- name: Copy the telco-boot-script script
+#  copy:
+#    src: files/service/telco-boot-script.sh
+#    dest: /usr/local/bin/telco-boot-script.sh
+#    owner: root
+#    group: root
+#    mode: 0750
+#
+#- name: Copy telco-boot.service config file
+#  copy:
+#    src: files/service/telco-boot.service
+#    dest: /etc/systemd/system/telco-boot.service
+#    owner: root
+#    group: root
+#    mode: 0644
+#
+## Add file update-ttyGNSS.sh to /usr/local/bin/ with executable permission
+#- name: Copy update-ttyGNSS.sh script
+#  copy:
+#    src: files/service/update-ttyGNSS.sh
+#    dest: /usr/local/bin/update-ttyGNSS.sh
+#    owner: root
+#    group: root
+#    mode: 0755
+#
+#- name: systemctl daemon-reload for telco-boot.service
+#  command: systemctl daemon-reload
+#
+#- name: systemctl enable telco-boot.service
+#  command: systemctl enable telco-boot.service
+#
+## disable systemd-timesyncd
+#- name: systemctl disable systemd-timesyncd
+#  command: systemctl disable systemd-timesyncd
+#
+## disable chronyd
+#- name: systemctl disable chronyd
+#  command: systemctl disable chronyd
+#
+## disable chrony-wait.service
+## if not disable chrony-wait.service, it will start chronyd service
+#- name: systemctl disable chrony-wait.service
+#  command: systemctl disable chrony-wait.service
+#
+## enable timesync to fix the bug#2853029
+#- name: vmware-toolbox-cmd timesync enable
+#  command: vmware-toolbox-cmd timesync enable
+#
+## add the customizations.yaml file to mark template
+#- name: Copy the customizations.yaml to /etc directory
+#  copy:
+#    src: files/customizations.yaml
+#    dest: /etc/customizations.yaml
+#    owner: root
+#    group: root
+#    mode: 0750
+#
+## add some packages for node customization
+## linux-firmware is for ice driver against E800
+#- name: Install packages for node customization for VMware Photon OS 3
+#  command: tdnf install {{ packages }} -y
+#  vars:
+#    packages: "linux-firmware-{{ linux_firmware_ver }}"
+#  when: photon_os_version == "photon-3"
+#
+#- name: Install packages for node customization for VMware Photon OS 5
+#  command: tdnf install {{ packages }} -y
+#  vars:
+#    packages: "linux-firmware-{{ linux_firmware_ver_ph5 }}"
+#  when: photon_os_version == "photon-5"
+#
+## update /vmware-data permission for vendor to read/write/execute
+#- file:
+#    path: /vmware-data
+#    state: directory
+#    mode: 0777
+#
+#- include_tasks: kernel.yaml
+#  when: kernel_config == "true"
+#
+#- include_tasks: repo.yml
+#  when:
+#    - repo_config == "true"
+#    - photon_os_version == "photon-3"
+#
+#- include_tasks: packages.yml
+#  when: package_upgrade == "true"
+#
+## Disable DHCP for all interfaces except eth0
+#- name: Copy 99-no-dhcp-en.network to /etc/systemd/network
+#  copy:
+#    src: files/network/99-no-dhcp-en.network
+#    dest: /etc/systemd/network/99-no-dhcp-en.network
+#    owner: root
+#    group: root
+#    mode: 0644
+#
+## Enable DHCP for tkg interface
+#- name: Copy 99-dhcp-tkg-nfs.network to /etc/systemd/network
+#  copy:
+#    src: files/network/99-dhcp-tkg-nfs.network
+#    dest: /etc/systemd/network/99-dhcp-tkg-nfs.network
+#    owner: root
+#    group: root
+#    mode: 0644
+#
+#- include_tasks: logrotate.yml
+#  when: logrotate_config == "true"
+#
+#- include_tasks: reboot.yml
+#  when: reboot_config == "true"
+#
+## custome node instead of inject vsphere-default-injection.yaml
+#- include_tasks: precustomize.yml
+#  when: custom_node == "true"
+#
+#- include_tasks: diagnosis.yml
+#  when: diagnosis_config == "true"
+#
+#- include_tasks: du.yml
+#  when: du_config == "true"
+#
+## install and enable service tca-ntp-handler.service
+## this service is a workaround for TKG issue https://jira.eng.vmware.com/browse/TKG-20060
+## will remove it once tkg issue been fixed
+## TKG does not support enable ntp related services on-demand, use tca-ntp-handler.service to achieve this requirement until tkg gives a solution
+#- name: Copy the tca_ntp_handler.py
+#  copy:
+#    src: files/service/tca_ntp_handler.py
+#    dest: /usr/local/bin/tca_ntp_handler.py
+#    owner: root
+#    group: root
+#    mode: 0750
+#
+#- name: Copy tca-ntp-handler.service
+#  copy:
+#    src: files/service/tca-ntp-handler.service
+#    dest: /etc/systemd/system/tca-ntp-handler.service
+#    owner: root
+#    group: root
+#    mode: 0644
+#
+#- name: systemctl daemon-reload for tca-ntp-handler.service
+#  command: systemctl daemon-reload
+#
+#- name: systemctl enable tca-ntp-handler.service
+#  command: systemctl enable tca-ntp-handler.service

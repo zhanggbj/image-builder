@@ -1,0 +1,6 @@
+[Match]
+Name=tkg*
+
+[Network]
+DHCP=yes
+IPv6AcceptRA=no

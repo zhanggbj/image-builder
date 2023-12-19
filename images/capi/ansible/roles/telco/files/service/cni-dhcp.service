@@ -1,0 +1,17 @@
+[Unit]
+Description=CNI IPAM DHCP daemon
+Documentation=https://www.cni.dev/plugins/current/ipam/dhcp/
+After=network.target
+
+[Service]
+ExecStartPre=/bin/sh -ec '\
+    if [ -S /run/cni/dhcp.sock ]; then rm /run/cni/dhcp.sock; fi'
+ExecStart=/opt/cni/bin/dhcp daemon
+Restart=always
+RestartSec=5
+Delegate=yes
+KillMode=process
+
+
+[Install]
+WantedBy=multi-user.target

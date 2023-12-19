@@ -29,6 +29,8 @@
     - include_role:
         name: node
     - include_role:
+        name: telco
+    - include_role:
         name: providers
     - include_role:
         name: containerd
